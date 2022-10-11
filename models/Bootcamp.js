@@ -1,4 +1,5 @@
 const mongooes = require('mongoose');
+const slugify = require('slugify');
 const BootcampSchema =new mongooes.Schema({
     name:{
         type:String,
@@ -88,4 +89,9 @@ const BootcampSchema =new mongooes.Schema({
         default: Date.now
     }
 });
+BootcampSchema.pre('save' , function(next){
+    // console.log('slugify ran',this.name);
+    this.slug = slugify(this.name,{lower:true})
+    next();
+})
 module.exports = mongooes.model('Bootcamp',BootcampSchema);
