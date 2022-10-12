@@ -88,10 +88,28 @@ const BootcampSchema =new mongooes.Schema({
         type:Date,
         default: Date.now
     }
-});
+},
+// {
+//     toJSON:{virtuals:true},
+//     toObject:{virtuals:true}
+// }
+);
 BootcampSchema.pre('save' , function(next){
     // console.log('slugify ran',this.name);
     this.slug = slugify(this.name,{lower:true})
     next();
+});
+/////////////////
+// BootcampSchema.pre('remove',async function (next){
+//     console.log(`Courses are removed from bootcamp ${this._id}`);
+//     await this.model('Course').deleteMany({bootcamp:this._id});
+//     next();
+// })
+/////////////////
+BootcampSchema.virtual('courses',{
+    ref:'Course',
+    localField:'_id',
+    foreignField:'bootcamp',
+    justOne: false
 })
 module.exports = mongooes.model('Bootcamp',BootcampSchema);

@@ -1,7 +1,9 @@
 const express =require('express');
-const {getBootcamps,getBootcamp,updateBootcamp,deleteBootcamp,createBootcamp} = require("../controller/bootcamps")
+const courseRouter = require('./courses');
+const {getBootcamps,getBootcamp,updateBootcamp,deleteBootcamp,createBootcamp,bootcampPhotoUpload} = require("../controller/bootcamps")
 const router = express.Router();
 
+router.use('/:bootcampId/courses',courseRouter);
 // router.get('/',(req,res)=>{
 //     res.status(400).json({success:true,msg:"show all bootcamps"})
 // });
@@ -19,4 +21,5 @@ const router = express.Router();
 // });
 router.route('/').get(getBootcamps).post(createBootcamp);
 router.route('/:id').get(getBootcamp).put(updateBootcamp).delete(deleteBootcamp);
+router.route('/photo/:id').put(bootcampPhotoUpload);
 module.exports = router;
