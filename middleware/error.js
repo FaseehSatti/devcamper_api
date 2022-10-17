@@ -7,7 +7,7 @@ const errorHandler = (err,req,res,next)=>{
     console.log(err);
     console.log(err.name);
     if(err.name === 'CastError'){
-        const message = `Bootcamp not found with the id of ${err.value}`;
+        const message = `Resource not found with the id of ${err.value}`;
         error = new ErrorResponse(message,404);
     } 
     // mongoose duplicate key 

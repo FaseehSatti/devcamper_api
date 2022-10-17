@@ -87,6 +87,11 @@ const BootcampSchema =new mongooes.Schema({
     createdAt:{
         type:Date,
         default: Date.now
+    },
+    user:{
+        type:mongooes.Schema.ObjectId,
+        ref:'User',
+        required: true
     }
 },
 // {
